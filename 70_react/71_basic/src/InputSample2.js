@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 function InputSample2() {
   const [student, setStudent] = useState({
     id: "",
     name: ""
   });
+
+  // inputId = {current: }
+  const inputId = useRef(); // ref 객체
+  const inputName = useRef();
 
   const onChange = e => {
     const { name, value } = e.target;
@@ -16,6 +20,9 @@ function InputSample2() {
       id: "",
       name: ""
     });
+    // // inputId.current = input DOM
+    // inputId.current.focus();
+    inputName.current.focus();
   };
 
   return (
@@ -25,12 +32,14 @@ function InputSample2() {
         placeholder="학번"
         onChange={onChange}
         value={student.id}
+        ref={inputId}
       />
       <input
         name="name"
         placeholder="이름"
         onChange={onChange}
         value={student.name}
+        ref={inputName}
       />
       <button onClick={onReset}>초기화</button>
       <div>
