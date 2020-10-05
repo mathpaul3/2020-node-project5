@@ -1,6 +1,28 @@
-import React from "react";
+import React, { useContext, useRef } from "react";
+import { MovieContext } from "./MovieReducerApp";
 
-function CreateMovie({ title, director, year, onChange, onCreate }) {
+function CreateMovie({ title, director, year }) {
+  const dispatch = useContext(MovieContext);
+
+  const onChange = e => {
+    const { name, value } = e.target;
+    dispatch({
+      type: "CHANGE",
+      name,
+      value
+    });
+  };
+
+  const nextId = useRef(4);
+
+  const onCreate = () => {
+    dispatch({
+      type: "CREATE",
+      id: nextId.current
+    });
+    nextId.current += 1;
+  };
+
   return (
     <>
       <input

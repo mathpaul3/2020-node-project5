@@ -1,7 +1,8 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useContext } from "react";
 import Music2 from "./Music2";
+import { MusicContext } from "./MusicReducerApp";
 
-function Music({ music, onRemove, onToggle }) {
+function Music({ music }) {
   const { id, title, singer, active } = music;
   const style = {
     color: active ? "blue" : "black",
@@ -22,6 +23,22 @@ function Music({ music, onRemove, onToggle }) {
     };
   }, [music]); // 의존값이 들어있는 배열4
 
+  const dispatch = useContext(MusicContext);
+
+  const onRemove = id => {
+    dispatch({
+      type: "REMOVE",
+      id
+    });
+  };
+
+  const onToggle = id => {
+    dispatch({
+      type: "TOGGLE",
+      id
+    });
+  };
+
   return (
     <>
       <div>
@@ -34,7 +51,7 @@ function Music({ music, onRemove, onToggle }) {
   );
 }
 
-function MusicList({ musicList, onRemove, onToggle }) {
+function MusicList({ musicList }) {
   const countActiveMusic = () => {
     console.log("Active 개수 세기");
     return musicList.filter(music => music.active).length;
@@ -43,12 +60,7 @@ function MusicList({ musicList, onRemove, onToggle }) {
   return (
     <>
       {musicList.map(music => (
-        <Music
-          key={music.id}
-          music={music}
-          onRemove={onRemove}
-          onToggle={onToggle}
-        />
+        <Music key={music.id} music={music} />
       ))}
       <hr />
       <div>Active된 Music 수 : {count}</div>

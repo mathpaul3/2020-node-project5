@@ -1,12 +1,30 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useContext } from "react";
 import Movie2 from "./Movie2";
+import { MovieContext } from "./MovieReducerApp";
 
-function Movie({ movie, onRemove, onToggle }) {
+function Movie({ movie }) {
   const { id, title, director, year, active } = movie;
   const style = {
     color: active ? "blue" : "black",
     cursor: "pointer"
   };
+
+  const dispatch = useContext(MovieContext);
+
+  const onRemove = id => {
+    dispatch({
+      type: "REMOVE",
+      id
+    });
+  };
+
+  const onToggle = id => {
+    dispatch({
+      type: "TOGGLE",
+      id
+    });
+  };
+
   return (
     <>
       <div>

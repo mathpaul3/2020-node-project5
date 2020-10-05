@@ -70,3 +70,15 @@ JSX 규칙
 - 값이 바뀌지 않은 경웅는 연산한 값을 재사용
 - 특정값이 바뀐 경우에만 연산 실행
 - 컴포넌트 성능 최적화를 위해 사용
+
+12. useReducer : 상태를 업데이트하는 로직을 분리
+- useState :간단한 데이터 처리
+- useReducer : 복잡한 데이터 처리
+function reducer(state, action) { .. }
+const [state, dispatch] = useReducer(reducer, initial)
+dispatch({type: "xx"})
+
+13. Context : 프로젝트에서 전역적으로 사용할 수 있도록 관리
+1) createContext()로 Context 생성하기
+2) Context.Provider 컴포넌트에 value값으로 설정
+3) useContext() hook을 사용해서 Context 값을 읽어오기
