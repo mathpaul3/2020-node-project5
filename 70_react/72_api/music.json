@@ -1,0 +1,7 @@
+{
+  "musicList": [
+    { "id": 1, "singer": "아이유", "title": "eight", "active": false },
+    { "id": 2, "singer": "폴킴", "title": "Hero", "active": false },
+    { "id": 3, "singer": "장범준", "title": "실버판테온", "active": false }
+  ]
+}

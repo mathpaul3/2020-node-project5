@@ -82,3 +82,10 @@ dispatch({type: "xx"})
 1) createContext()로 Context 생성하기
 2) Context.Provider 컴포넌트에 value값으로 설정
 3) useContext() hook을 사용해서 Context 값을 읽어오기
+
+14. API 연동하기
+- npx create-react-app 72_api
+- axios 설치 : yarn add axios
+- json-server 설치 : yarn global add json-server
+- music.json
+- json-server --watch music.json --port 5000
