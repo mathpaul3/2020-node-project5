@@ -1,6 +1,6 @@
-import React, { useReducer, useEffect, useState } from "react";
 import axios from "axios";
-import Music from "./Music";
+import React, { useReducer, useEffect, useState } from "react";
+import Movie from "./Movie";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -27,7 +27,7 @@ function reducer(state, action) {
   }
 }
 
-function MusicList() {
+function MovieList() {
   const [id, setId] = useState(null);
   const [state, dispatch] = useReducer(reducer, {
     loading: false,
@@ -38,8 +38,7 @@ function MusicList() {
   const fetchData = async () => {
     dispatch({ type: "LOADING" });
     try {
-      // GET 조회, POST: 등록, PUT: 수정, DELETE: 삭제
-      const response = await axios.get("http://localhost:5000/musicList");
+      const response = await axios.get("http://localhost:5000/movieList");
       console.log(response);
       dispatch({ type: "SUCCESS", data: response.data });
     } catch (e) {
@@ -48,35 +47,37 @@ function MusicList() {
     }
   };
 
-  // 화면이 마운트 될때만 실행
-  useEffect(() => {
-    fetchData();
-  }, []);
+  useEffect(
+    () => {
+      // 화면이 마운트 될 때
+      fetchData();
+    }, // props의 value가 바뀔 때
+    []
+  );
 
-  const { loading, data: musicList, error } = state;
+  const { loading, data: movieList, error } = state;
 
   if (loading) return <div>로딩중...</div>;
   if (error) return <div>에러가 발생했습니다.</div>;
-  if (!musicList) return null;
-  // return <button onClick={fetchData}>불러오기</button>;
+  if (!movieList) return null;
 
   return (
     <>
       <ul>
-        {musicList.map(music => (
+        {movieList.map(movie => (
           <li
-            key={music.id}
-            onClick={() => setId(music.id)}
+            key={movie.id}
+            onClick={() => setId(movie.id)}
             style={{ cursor: "pointer" }}
           >
-            {music.title} ({music.singer})
+            {movie.title} ({movie.director}, {movie.year})
           </li>
         ))}
       </ul>
       <button onClick={fetchData}>불러오기</button>
-      {id && <Music id={id} />}
+      {id && <Movie id={id} />}
     </>
   );
 }
 
-export default MusicList;
+export default MovieList;
