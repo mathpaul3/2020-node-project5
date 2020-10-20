@@ -10,4 +10,4 @@
 4. express
 5. express-generator
 6. mongodb
-7. view
+7. react
